@@ -1,0 +1,11 @@
+This contains some android binaries we were recompiled with some patches to match the
+required environment. Right now this are:
+
+- libc: contains a patch (patches/bionic-pthread-tls.patch) for the use with libhybris
+
+To rebuild this you need android build environment for (see
+https://source.android.com/source/index.html). To recompile libc for example:
+
+# source build/envsetup.sh
+# lunch full-maguro_eng
+# make BUILD_TINY_BIONIC=true libc
