@@ -1,11 +1,14 @@
-This contains some android binaries we were recompiled with some patches to match the
-required environment. Right now this are:
+This contains a complete android rootfs we need to setup the graphics acceleration
+together with libhybris.
 
-- libc: contains a patch (patches/bionic-pthread-tls.patch) for the use with libhybris
+NOTE: This repository does not contain any properietary binaries from the nexus drivers
+website (https://developers.google.com/android/nexus/drivers). Everything part of this
+repository is freely available as part of the AOSP source tree.
 
-To rebuild this you need android build environment for (see
-https://source.android.com/source/index.html). To recompile libc for example:
+The android rootfs is based on android version 4.1.2_r1. The components that needs
+to be patched are:
 
-# source build/envsetup.sh
-# lunch full-maguro_eng
-# make BUILD_TINY_BIONIC=true libc
+- libc: patches/bionic-pthread-tls.patch
+
+To rebuild everythign you need an android build environment (see
+https://source.android.com/source/index.html).
