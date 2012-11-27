@@ -10,5 +10,52 @@ to be patched are:
 
 - libc: patches/bionic-pthread-tls.patch
 
-To rebuild everythign you need an android build environment (see
+To rebuild everything you need an android build environment (see
 https://source.android.com/source/index.html).
+
+To configure the build for the Galaxy Nexus device the execute the following steps:
+
+NOTE: we have to build things twice as the linker binary is statically linked against the
+libc library and it should not be linked against our modified one!
+
+# source build/envsetup
+# lunch full_maguro-userdebug
+# (cd bionic && git apply bionic-pthread-tls.patch)
+# make clean && make libc
+
+Now you have to copy just the libc library from the build directory and put it into the
+staging directory of this repository (path /system/bin).
+
+# make clean
+# (cd bionic && git reset --hard)
+# make
+
+After everything was sucessfully build the following files have to be copied over to the
+statging directory of this repository (you will find all this files in the android device
+build directory out/target/product/maguro/):
+
+system
+system/lib
+system/lib/libEGL.so
+system/lib/egl
+system/lib/egl/egl.cfg
+system/lib/egl/libGLES_android.so
+system/lib/libstlport.so
+system/lib/libgccdemangle.so
+system/lib/libcutils.so
+system/lib/libGLESv1_CM.so
+system/lib/libhardware.so
+system/lib/libz.so
+system/lib/libcorkscrew.so
+system/lib/libGLESv2.so
+system/lib/libui.so
+system/lib/libutils.so
+system/lib/libGLES_trace.so
+system/lib/libcrypto.so
+system/lib/libc.so
+system/lib/liblog.so
+system/lib/libstdc++.so
+system/lib/libm.so
+system/build.prop
+system/bin
+system/bin/linker
